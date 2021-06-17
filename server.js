@@ -2,11 +2,15 @@ const fastify = require('fastify')({
     logger: true
 });
 const PORT = process.env.port || 3000;
-require('dotenv').config();
+const dotenv = require('dotenv');
 const Sentry = require("@sentry/node");
+
+dotenv.config();
+
 Sentry.init({
     dsn: process.env.SENTRY_DSN,
 });
+
 
 fastify.setErrorHandler(async (error, request, reply) => {
     // Logging locally
